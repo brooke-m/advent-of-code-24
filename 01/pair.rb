@@ -1,10 +1,12 @@
-# load lines into map with index <i, v>
+## plan
+# load lines into hash <i, v>
 # sort into arrays
 # ???
 # go back to whatever i as meant to do instead of this
 
 left_input = {}
 right_input = {}
+difference_sum = 0
 
 input_lines = b = IO.readlines("input.txt", chomp: true)
 
@@ -16,7 +18,6 @@ end
 
 left_list = left_input.sort_by {|k, v| v}
 right_list = right_input.sort_by {|k, v| v}
-difference_sum = 0
 
 left_list.each_with_index do |l_pair, i|
   r_pair = right_list[i]
