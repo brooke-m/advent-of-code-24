@@ -13,20 +13,35 @@ def safe?(reports) # array -> int
   reports.each_with_index do |_, i|
     next unless reports[i + 1]
     delta = reports[i].to_i - reports[i + 1].to_i
-    
-    # puts reports[i] + " - " + reports[i + 1] + " = " + delta.to_s
 
     up += 1 if delta > 0
     down += 1 if delta < 0
     unsafe = true if delta == 0 || delta.abs > 3
   end
 
-  return 0 if (up > 0 && down > 0) || unsafe
-  1
+  return false if (up > 0 && down > 0) || unsafe
+  true
 end
 
+def safe_ish?(reports)
+  recoverable = false
+
+  reports.each_with_index do |_,i|
+    section = reports.dup.tap{|a| a.delete_at(i)}
+    recoverable = true if safe?(section)
+  end
+
+  return recoverable
+end
+
+# lets gooooooo
+
 input.each do |line|
-  safe_count += safe?(line.split)
+  if safe?(line.split)
+    safe_count += 1
+  elsif safe_ish?(line.split)
+    safe_count += 1 # close enough
+  end
 end
 
 puts safe_count
