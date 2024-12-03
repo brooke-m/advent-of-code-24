@@ -1,12 +1,9 @@
-## put it in a string
-# scan ()
-# strip the punctuation and do maths
-# win
+# put it all in a hash
+# cash money more like hash money
 
 input = IO.readlines("input.txt", chomp: true).join
 product = 0
 commands = {}
-
 
 # index mul products by substring index
 mul_pos = input.enum_for(:scan, /mul\(\d+,\d+\)/).map { [ Regexp.last_match.begin(0) ] }
