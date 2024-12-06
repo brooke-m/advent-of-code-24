@@ -52,11 +52,8 @@ end
 def find_left(arr)
   return arr[0] if arr.length == 1
 
-  x = 0
-
   arr.each do |i|
     tmp = arr - [i]
-
     return i if tmp.all?{ |n| @rules[i] && @rules[i].include?(n) }
   end
 end
