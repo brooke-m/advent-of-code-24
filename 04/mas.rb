@@ -1,7 +1,3 @@
-### plan
-# ough,,
-# big grid? 
-
 @grid = []
 count = 0
 
