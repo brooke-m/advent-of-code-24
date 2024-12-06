@@ -17,7 +17,7 @@ def valid_pair?(x, y)
   @rules[x] && @rules[x].include?(y)
 end
 
-IO.readlines("example.txt", chomp: true).each do |l|
+IO.readlines("input.txt", chomp: true).each do |l|
   update_rules(l) if l.match(/(\d*\|\d*)/)
   @updates << l if l.match(/(\d*,\d*)\d/)
 end
@@ -35,5 +35,36 @@ end
   valid ? @good_updates << pages : @bad_updates << pages
 end
 
-puts @good_updates.map {|u| u[(u.length - 1)/2].to_i }.sum
+### silly zone 
 
+
+def fix(arr)
+  out = []
+
+  while arr.length > 0
+    left = find_left(arr)
+    out << left 
+    arr = arr - [left]
+  end
+  out
+end
+
+def find_left(arr)
+  return arr[0] if arr.length == 1
+
+  x = 0
+
+  arr.each do |i|
+    tmp = arr - [i]
+
+    return i if tmp.all?{ |n| @rules[i] && @rules[i].include?(n) }
+  end
+end
+
+@better = []
+
+@bad_updates.each do |bad|
+  @better << fix(bad)
+end
+
+puts @better.map {|u| u[(u.length - 1)/2].to_i }.sum
